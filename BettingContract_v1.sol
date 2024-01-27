@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
-//version v1.1
+//version 1.1
+//BettingContract for https://bbetter.co.in/
 
 //BSC TESTNET
+//0x4Af3ef2309A9B703Db673af6fE3f784eE20f72Fe brav ac2
+//0x393BBf911E5624b91C9AA6Ead47a7f7f7C369809 fire ac2
 
 //BSC MAINNET
 
@@ -9,11 +12,14 @@ pragma solidity ^0.8.12;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/ERC20.sol";
 
-import "https://github.com/BetterSmartContract/Betting-V1/blob/main/BettingOracle_ChainLink_v3.sol";
+import "https://github.com/bbettercoin/Betting-V1/blob/main/BettingOracle_ChainLink_v3.sol";
+
+//import "./BettingOracle_ChainLink_v3-1.sol";
 
 contract BettingContract_v1 {
     address public developer;
 
+    //init better_oracle
     BettingOracle_ChainLink_v3 public better_oracle;
 
     struct Bet {
@@ -98,12 +104,15 @@ contract BettingContract_v1 {
     uint256 public range_percentage; // 6 = 6%
     uint256 ratio_decimails; //10 ** 18 = 1000000000000000000
 
+    address oracle_address;
+
     constructor(
         uint256 in_timeLeap_end,
         uint256 in_timeLeap_pending,
         uint256 in_fee_percentage,
         uint256 in_range_percentage,
-        uint256 in_ratio_decimails
+        uint256 in_ratio_decimails,
+        address _oracle_address
     ) {
         developer = msg.sender;
         timeLeap_end = in_timeLeap_end;
@@ -112,19 +121,31 @@ contract BettingContract_v1 {
         fee_percentage = in_fee_percentage;
         range_percentage = in_range_percentage;
         ratio_decimails = in_ratio_decimails;
+
+        better_oracle = BettingOracle_ChainLink_v3(_oracle_address);
     }
 
     /**
-     * to update timeLeap
+     * to re construct the build
      */
-    function update_timeLeap(
+    function update_constructor(
         uint256 in_timeLeap_end,
-        uint256 in_timeLeap_pending
+        uint256 in_timeLeap_pending,
+        uint256 in_fee_percentage,
+        uint256 in_range_percentage,
+        uint256 in_ratio_decimails,
+        address _oracle_address
     ) public {
         require(developer == msg.sender, "only developer can update timeLeap");
 
         timeLeap_end = in_timeLeap_end;
         timeLeap_pending = in_timeLeap_pending;
+
+        fee_percentage = in_fee_percentage;
+        range_percentage = in_range_percentage;
+        ratio_decimails = in_ratio_decimails;
+
+        better_oracle = BettingOracle_ChainLink_v3(_oracle_address);
     }
 
     /**
@@ -312,7 +333,7 @@ contract BettingContract_v1 {
         );
 
         bool bettor = false;
-        Betting memory betting = bettings[_betting_id];
+        Betting storage betting = bettings[_betting_id];
 
         if (
             bets[bet_id_in_all_bet_list].betting_id == _betting_id &&
@@ -321,7 +342,7 @@ contract BettingContract_v1 {
             bettor = true;
         }
 
-        if (betting.creater == msg.sender) {
+        if (bettings[_betting_id].creater == msg.sender) {
             bettor = true;
         }
 
@@ -347,12 +368,11 @@ contract BettingContract_v1 {
         //address oracle_address;
 
         // get token decimals
+
         (, uint256 token_decimails, ) = better_oracle
             .fetch_betting_token_from_ChainLink_Price_Feed_Contract_Addresses_obj(
                 betting.pair_name
             );
-
-        //better_oracle = BettingOracle_ChainLink_v3(oracle_address);
 
         (uint256 _correctPrice, ) = better_oracle
             .fetch_closest_price_to_timestamp(

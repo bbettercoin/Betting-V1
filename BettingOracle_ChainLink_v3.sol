@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
-//BettingOracle_ChainLink v3.1
+//version 3.1
+//BettingOracle for https://bbetter.co.in/
+
 //bsc testnet
+//0x1EbF52EFa804E0c68590A088A7870388079306EC fire ac2
+//0x65ee4aacc2ca681A431a589907F7e91455019Dec brav ac1
 //bsc mainnet
 //ethereum mainnet
 //sepolia testnet
@@ -42,14 +46,14 @@ contract BettingOracle_ChainLink_v3 {
      * bsc mainnet = 10000
      * ethereum mainnet = 2000
      */
-    uint80 _deduction;
+    uint80 public _deduction;
 
     //ini_timestamp_difference adjustment
     /**
      * bsc mainnet = 30
      * ethereum mainnet = 300
      */
-    uint _ini_timestamp_difference;
+    uint public _ini_timestamp_difference;
 
     /**
      * Network: Sepolia
@@ -91,6 +95,8 @@ contract BettingOracle_ChainLink_v3 {
                     bytes(pair_name_in_contract_addresses[i].pair_name)
                 ) ==
                 keccak256(bytes(pair_name)) &&
+                pair_name_in_contract_addresses[i].betting_token ==
+                betting_token &&
                 pair_name_in_contract_addresses[i].valid == true
             ) {
                 betting_token = pair_name_in_contract_addresses[i]
