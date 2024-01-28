@@ -15,9 +15,9 @@ pragma solidity ^0.8.12;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/ERC20.sol";
 
-//import "https://github.com/bbettercoin/Betting-V1/blob/main/BettingOracle_ChainLink_v3.sol";
+import "https://github.com/bbettercoin/Betting-V1/blob/main/BettingOracle_ChainLink_v3.sol";
 
-import "./BettingOracle_ChainLink_v3-1.sol";
+//import "./BettingOracle_ChainLink_v3-1.sol";
 
 contract BettingContract_v1 {
     address public developer;
