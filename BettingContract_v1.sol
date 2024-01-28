@@ -6,15 +6,18 @@
 //0x4Af3ef2309A9B703Db673af6fE3f784eE20f72Fe brav ac2
 //0x393BBf911E5624b91C9AA6Ead47a7f7f7C369809 fire ac2
 
+//sepolia testnet
+//0xbc8CBc3CC6CA98913C6b6e8de61Ec7d32A12f6BF brav ac2
+
 //BSC MAINNET
 
 pragma solidity ^0.8.12;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.9.0/contracts/token/ERC20/ERC20.sol";
 
-import "https://github.com/bbettercoin/Betting-V1/blob/main/BettingOracle_ChainLink_v3.sol";
+//import "https://github.com/bbettercoin/Betting-V1/blob/main/BettingOracle_ChainLink_v3.sol";
 
-//import "./BettingOracle_ChainLink_v3-1.sol";
+import "./BettingOracle_ChainLink_v3-1.sol";
 
 contract BettingContract_v1 {
     address public developer;
@@ -182,7 +185,8 @@ contract BettingContract_v1 {
 
         (, , bool valid) = better_oracle
             .fetch_betting_token_from_ChainLink_Price_Feed_Contract_Addresses_obj(
-                pair_name
+                pair_name,
+                betting_token
             );
 
         require(valid == true, "pair_name not supported! @ CreateBetting()");
@@ -371,7 +375,8 @@ contract BettingContract_v1 {
 
         (, uint256 token_decimails, ) = better_oracle
             .fetch_betting_token_from_ChainLink_Price_Feed_Contract_Addresses_obj(
-                betting.pair_name
+                betting.pair_name,
+                betting.betting_token
             );
 
         (uint256 _correctPrice, ) = better_oracle

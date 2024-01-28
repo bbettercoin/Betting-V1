@@ -8,6 +8,7 @@
 //bsc mainnet
 //ethereum mainnet
 //sepolia testnet
+//0xEc4757687F8FE63AA3AD261752d334B930F97F51 brav ac2
 
 pragma solidity ^0.8.12;
 
@@ -82,7 +83,8 @@ contract BettingOracle_ChainLink_v3 {
      * pair_name: pair name of returned price feed data struct
      */
     function fetch_betting_token_from_ChainLink_Price_Feed_Contract_Addresses_obj(
-        string calldata pair_name
+        string calldata pair_name,
+        address _betting_token
     ) public view returns (address, uint256, bool) {
         address betting_token;
         uint256 betting_token_decimails;
@@ -96,7 +98,7 @@ contract BettingOracle_ChainLink_v3 {
                 ) ==
                 keccak256(bytes(pair_name)) &&
                 pair_name_in_contract_addresses[i].betting_token ==
-                betting_token &&
+                _betting_token &&
                 pair_name_in_contract_addresses[i].valid == true
             ) {
                 betting_token = pair_name_in_contract_addresses[i]
