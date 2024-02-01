@@ -5,10 +5,15 @@
 //bsc testnet
 //0x1EbF52EFa804E0c68590A088A7870388079306EC fire ac2
 //0x65ee4aacc2ca681A431a589907F7e91455019Dec brav ac1
+//0x51C02daf829d3fF97E7CFAE4580a9D2220F17D44 brav ac2
+
 //bsc mainnet
+//0xCA6685EcFa3c367624Be5fF8513c30163F0692f1 brav ac2
+//0x6f3443472B71e61c0ddBb90642fF877048A297cb brav ac2 with higher gas limit
+
 //ethereum mainnet
 //sepolia testnet
-//0xEc4757687F8FE63AA3AD261752d334B930F97F51 brav ac2
+//0x9530Cb27C3Ca02b09d74d042431ECedAe7930F84 brav ac2
 
 pragma solidity ^0.8.12;
 

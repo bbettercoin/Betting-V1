@@ -5,11 +5,13 @@
 //BSC TESTNET
 //0x4Af3ef2309A9B703Db673af6fE3f784eE20f72Fe brav ac2
 //0x393BBf911E5624b91C9AA6Ead47a7f7f7C369809 fire ac2
+//0x5590175948ACE4575ee05dA4d9F5E82BAfABF9ab brav ac2
 
 //sepolia testnet
-//0xbc8CBc3CC6CA98913C6b6e8de61Ec7d32A12f6BF brav ac2
+//0x5d2B1C91DB08b313efA4C57cba77C1cfb8D71904 brav ac2
 
 //BSC MAINNET
+//0x79fE2F3fe1e2C7242cB3057b6df6d1438467c1Ae brav ac2
 
 pragma solidity ^0.8.12;
 
@@ -94,6 +96,7 @@ contract BettingContract_v1 {
     //timeLeap
     //1209600 = 14 days
     //604800 = 7 days
+    //259200 = 3 days
     //1080 = 18 minutes
     //720 = 12 minutes
     //360 = 6 minutes
